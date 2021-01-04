@@ -142,32 +142,43 @@
 				initialize: function() {
 
 					// Deactivate section.
-						$(this).addClass('inactive');
+					$(this).addClass('inactive');
 
+				},
+				leave: function(){
+
+					// Deactivate section.
+					$(this).addClass('inactive');
+					
 				},
 				enter: function() {
 
+					// Lazyload images on entering scroll
+					var	$this = $(this),
+					$image = $this.find('.image'),
+					$img = $image.find('img'),
+					x;
+
+					// Assign image.
+					$image.css('background-image', 'url(' + $img.attr('data-src') + ')');
+
+					// Set background position.
+					if (x = $img.data('position'))
+						$image.css('background-position', x);
+
+					// Hide <img>.
+					$img.hide();
+
 					// Activate section.
-						$(this).removeClass('inactive');
+					$(this).removeClass('inactive');
 
 				}
 			})
 			.each(function() {
 
-				var	$this = $(this),
-					$image = $this.find('.image'),
-					$img = $image.find('img'),
-					x;
-
-				// Assign image.
-					$image.css('background-image', 'url(' + $img.attr('data-src') + ')');
-
-				// Set background position.
-					if (x = $img.data('position'))
-						$image.css('background-position', x);
-
-				// Hide <img>.
-					$img.hide();
+				// Do nothing
+				// Will get triggered everytime page loads
+				// Operations here will slow down the page bootstrap
 
 			});
 
