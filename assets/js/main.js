@@ -10,6 +10,7 @@
 		$body = $('body'),
 		$sidebar = $('#sidebar');
 
+	
 	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
@@ -30,23 +31,45 @@
 				$body.removeClass('is-preload');
 			}, 100);
 
-			
+			// https://dashboard.emailjs.com/admin/integration
+			emailjs.init('user_JcmqKbUO8BMI7sK6WXzVK');
 
+			document.getElementById('contact-form').addEventListener('submit', function(event) {
+				event.preventDefault();
+				console.log("submitting message...")
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('service_clrf82f', 'template_wi74mba', this)
+                    .then(function() {
+						console.log('SUCCESS!! SUBMITTED MESSAGE');
+						Swal.fire("Hurray!! Thanks for contacting...", 
+								"Have a great day", 
+								"success");
+						$("#contact-form").trigger("reset")
+                    }, function(error) {
+						console.log('FAILED...', error);
+						Swal.fire("Something went wrong...", 
+								"Please try again later.", 
+								"error");
+                    });
+            });
+			
 		});
 
 	// Forms.
 
 		// Hack: Activate non-input submits.
-			$('form').on('click', '.submit', function(event) {
+			// $('form').on('click', '.submit', function(event) {
 
-				// Stop propagation, default.
-					event.stopPropagation();
-					event.preventDefault();
+			// 	// Stop propagation, default.
+			// 		event.stopPropagation();
+			// 		event.preventDefault();
 
-				// Submit form.
-					$(this).parents('form').submit();
+			// 	// Submit form.
+			// 		$(this).parents('form').submit();
 
-			});
+			// });
 
 	// Sidebar.
 		if ($sidebar.length > 0) {
