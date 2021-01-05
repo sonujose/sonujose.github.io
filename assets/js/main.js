@@ -43,8 +43,8 @@
                 emailjs.sendForm('service_clrf82f', 'template_wi74mba', this)
                     .then(function() {
 						console.log('SUCCESS!! SUBMITTED MESSAGE');
-						Swal.fire("Hurray!! Thanks for contacting...", 
-								"Have a great day", 
+						Swal.fire("Hurray!!", 
+								"Thanks for contacting. Have a great day", 
 								"success");
 						$("#contact-form").trigger("reset")
                     }, function(error) {
